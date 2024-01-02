@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.0.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\V1\Responses\" />
-    <Folder Include="Dto\V1\Requests\" />
-    <Folder Include="Models\V1\" />
+    <Folder Include="Dto\v1\Responses\" />
+    <Folder Include="Dto\v1\Requests\" />
+    <Folder Include="Models\v1\" />
   </ItemGroup>
 
 </Project>

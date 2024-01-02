@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using ReefTankTracker.Interfaces.v1;
 using ReefTankTracker.Models.v1;
 
 namespace ReefTankTracker.Controllers.v1
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:ApiVersion}/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
@@ -15,6 +17,9 @@ namespace ReefTankTracker.Controllers.v1
            _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Test API that returns a list of users
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ICollection<UserV1>))]
         public IActionResult Get()
