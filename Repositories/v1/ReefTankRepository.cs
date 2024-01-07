@@ -1,6 +1,10 @@
-﻿using ReefTankTracker.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ReefTankTracker.Data;
+using ReefTankTracker.Dto.v1.Requests.ReefTank;
 using ReefTankTracker.Interfaces.v1;
 using ReefTankTracker.Models.v1;
+using System;
+using System.Linq;
 
 namespace ReefTankTracker.Repositories.v1
 {
@@ -13,29 +17,48 @@ namespace ReefTankTracker.Repositories.v1
             _context = context;
         }
 
-        public Task<ReefTankModelV1> Create(ReefTankModelV1 reefTank)
+        public async Task CreateAsync(ReefTankModelV1 reefTank)
         {
-            throw new NotImplementedException();
+            await _context.ReefTanks.AddAsync(reefTank);
+            await _context.SaveChangesAsync();
+        } 
+
+        public async Task<Boolean> IfExistsAsync(Guid id)
+        {
+            return await _context.ReefTanks.AnyAsync(reefTank => reefTank.Id == id && reefTank.IsDeleted == false);
         }
 
-        public Task<Guid> DeleteById(Guid id)
+        public async Task DeleteByIdAsync(Guid id, DateTime currentDateTime)
         {
-            throw new NotImplementedException();
+           var result = await _context.ReefTanks.SingleOrDefaultAsync(reefTank => reefTank.Id == id);
+            if(result != null)
+            {
+                result.IsDeleted = true;
+                result.DeletedDateTime = currentDateTime;
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task<IEnumerable<ReefTankModelV1>> GetAllByUserId(Guid userId)
+        public async Task<IEnumerable<ReefTankModelV1>> GetAllByUserIdAsync(String userId)
         {
-            throw new NotImplementedException();
+            return await _context.ReefTanks.Where(reefTank => reefTank.UserId == userId && reefTank.IsDeleted == false).ToListAsync();
         }
 
-        public Task<ReefTankModelV1> GetById(Guid id)
+        public async Task<ReefTankModelV1?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.ReefTanks.FirstOrDefaultAsync(reefTank => reefTank.Id == id);
         }
 
-        public Task<ReefTankModelV1> UpdateAsync(ReefTankModelV1 reefTank)
+        public async Task UpdateAsync(ReefTankUpdateRequest reefTank, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            var result = await _context.ReefTanks.FirstOrDefaultAsync(reefTank => reefTank.Id == reefTank.Id);
+            if (result != null)
+            {
+                result.Name = reefTank.Name;
+                result.Description = reefTank.Description;
+                result.UpdatedDateTime = dateTime;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

@@ -14,14 +14,14 @@ namespace ReefTankTracker.Controllers.v1
     public class UserController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IJwtTokenHelper _jwtTokenService;
+        private readonly IJwtTokenHelper _jwtTokenHelper;
         private readonly IMapper _mapper;
 
         public UserController(UserManager<IdentityUser> userManager, IMapper mapper, IJwtTokenHelper jwtTokenService)
         {
             _userManager = userManager;
             _mapper = mapper;
-            _jwtTokenService = jwtTokenService;
+            _jwtTokenHelper = jwtTokenService;
         }
 
 
@@ -68,7 +68,7 @@ namespace ReefTankTracker.Controllers.v1
                 return BadRequest("Bad Credentials");
             }
 
-            var token = _jwtTokenService.CreateJwt(user);
+            var token = _jwtTokenHelper.CreateJwt(user);
 
             return Ok(token);
         }

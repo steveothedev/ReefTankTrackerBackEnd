@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ReefTankTracker.Dto.v1.Requests.ReefTank;
 using ReefTankTracker.Dto.v1.Requests.User;
 using ReefTankTracker.Dto.v1.Responses.ReefTank;
 using ReefTankTracker.Dto.v1.Responses.User;
@@ -12,6 +13,8 @@ namespace ReefTankTracker.Configuration
         {
             CreateMap<UserSignUpRequestsDtoV1, UserSignUpResponseDtoV1>();
             CreateMap<ReefTankModelV1, ReefTankResponseDtoV1>();
+            CreateMap<ReefTankCreateRequestDtoV1, ReefTankResponseDtoV1>();
+            CreateMap<ReefTankUpdateRequest, ReefTankResponseDtoV1>();
         }
     }
 }
