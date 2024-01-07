@@ -1,17 +1,41 @@
 using Asp.Versioning;
-using Asp.Versioning.Conventions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using ReefTankTracker.Configuration.Swagger;
 using ReefTankTracker.Data;
 using ReefTankTracker.Interfaces.v1;
 using ReefTankTracker.Repositories.v1;
-using ReefTankTracker.Swagger;
+using ReefTankTracker.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = ,
+        ValidAudience = ,
+        IssuerSigningKey = ,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+    };
+});
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,12 +59,20 @@ builder.Services.AddApiVersioning(options =>
         //options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
     });
-    //.AddMvc();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<DataContext>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IReefTankRepository, ReefTankRepository>();
+builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
 
 var app = builder.Build();
 
@@ -61,6 +93,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

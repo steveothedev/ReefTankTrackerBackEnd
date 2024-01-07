@@ -4,6 +4,6 @@ namespace ReefTankTracker.Interfaces.v1
 {
     public interface IUserRepository
     {
-        ICollection<UserV1> GetUsers();
+        ICollection<UserModelV1> GetUsers();
     }
 }

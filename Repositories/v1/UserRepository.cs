@@ -12,7 +12,7 @@ namespace ReefTankTracker.Repositories.v1
             _context = context;
         }
 
-        public ICollection<UserV1> GetUsers()
+        public ICollection<UserModelV1> GetUsers()
         {
             return _context.Users.ToList();
         }

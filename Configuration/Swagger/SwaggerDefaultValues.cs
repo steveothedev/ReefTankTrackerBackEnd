@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json;
 
-namespace ReefTankTracker.Swagger
+namespace ReefTankTracker.Configuration.Swagger
 {
     public class SwaggerDefaultValues : IOperationFilter
     {
