@@ -49,6 +49,7 @@ namespace ReefTankTracker.Controllers.v1
         [HttpPost("Login")]
         public async Task<ActionResult<LoginResponse>> Login(UserSignUpRequestsDtoV1 userRequest)
         {
+            //TODO: Decide wether to use user name or email
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
