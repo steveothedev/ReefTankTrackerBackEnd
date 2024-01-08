@@ -94,7 +94,7 @@ namespace ReefTankTracker.Controllers.v1
         }
 
         [HttpPut]
-        public async Task<ActionResult<ReefTankResponseDtoV1>> Put(ReefTankUpdateRequest reefTank)
+        public async Task<ActionResult<ReefTankResponseDtoV1>> Put(ReefTankUpdateRequestDtoV1 reefTank)
         {
             if (!ModelState.IsValid) { 
                return BadRequest(ModelState);

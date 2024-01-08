@@ -6,6 +6,6 @@ namespace ReefTankTracker.Interfaces.v1
 {
     public interface IJwtTokenHelper
     {
-        LoginResponse CreateJwt(IdentityUser user);
+        LoginResponseDtoV1 CreateJwt(IdentityUser user);
     }
 }

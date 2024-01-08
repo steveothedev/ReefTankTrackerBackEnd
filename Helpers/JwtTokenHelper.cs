@@ -18,7 +18,7 @@ namespace ReefTankTracker.Services
             _configuration = configuration;
         }
 
-        public LoginResponse CreateJwt(IdentityUser user)
+        public LoginResponseDtoV1 CreateJwt(IdentityUser user)
         {
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -43,7 +43,7 @@ namespace ReefTankTracker.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwt = tokenHandler.WriteToken(token);
-            return new LoginResponse
+            return new LoginResponseDtoV1
             {
                 Token = jwt
             };

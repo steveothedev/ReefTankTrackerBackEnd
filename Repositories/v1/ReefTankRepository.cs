@@ -49,7 +49,7 @@ namespace ReefTankTracker.Repositories.v1
             return await _context.ReefTanks.FirstOrDefaultAsync(reefTank => reefTank.Id == id);
         }
 
-        public async Task UpdateAsync(ReefTankUpdateRequest reefTank, DateTime dateTime)
+        public async Task UpdateAsync(ReefTankUpdateRequestDtoV1 reefTank, DateTime dateTime)
         {
             var result = await _context.ReefTanks.FirstOrDefaultAsync(reefTank => reefTank.Id == reefTank.Id);
             if (result != null)

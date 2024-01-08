@@ -9,7 +9,7 @@ namespace ReefTankTracker.Interfaces.v1
         Task<IEnumerable<ReefTankModelV1>> GetAllByUserIdAsync(String userId);
         Task<ReefTankModelV1?> GetByIdAsync(Guid id);
         Task<Boolean> IfExistsAsync(Guid id);
-        Task UpdateAsync(ReefTankUpdateRequest reefTank, DateTime dateTime);
+        Task UpdateAsync(ReefTankUpdateRequestDtoV1 reefTank, DateTime dateTime);
         Task DeleteByIdAsync(Guid id, DateTime currentDateTime);
     }
 }

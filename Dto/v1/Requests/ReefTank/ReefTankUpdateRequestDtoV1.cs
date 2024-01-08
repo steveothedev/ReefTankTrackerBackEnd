@@ -2,7 +2,7 @@
 
 namespace ReefTankTracker.Dto.v1.Requests.ReefTank
 {
-    public class ReefTankUpdateRequest
+    public class ReefTankUpdateRequestDtoV1
     {
         [Required] 
         public Guid Id { get; set; }

@@ -18,11 +18,11 @@ namespace ReefTankTracker.Configuration
             //Reef Tanks
             CreateMap<ReefTankModelV1, ReefTankResponseDtoV1>();
             CreateMap<ReefTankCreateRequestDtoV1, ReefTankResponseDtoV1>();
-            CreateMap<ReefTankUpdateRequest, ReefTankResponseDtoV1>();
+            CreateMap<ReefTankUpdateRequestDtoV1, ReefTankResponseDtoV1>();
             //Parameter
             CreateMap<ParameterModelV1, ParameterResponseDtoV1>();
             CreateMap<ParameterCreateRequestDtoV1, ParameterResponseDtoV1>();
-            CreateMap<ReefTankUpdateRequest, ParameterResponseDtoV1>();
+            CreateMap<ReefTankUpdateRequestDtoV1, ParameterResponseDtoV1>();
         }
     }
 }
