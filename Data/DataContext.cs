@@ -13,10 +13,12 @@ namespace ReefTankTracker.Data
         } 
 
         public DbSet<ReefTankModelV1> ReefTanks { get; set; }
+        public DbSet<ParameterModelV1> Parameters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ReefTankModelV1>().HasOne<IdentityUser>().WithMany().HasForeignKey(e => e.UserId);
+            builder.Entity<ParameterModelV1>().HasOne<IdentityUser>().WithMany().HasForeignKey(e => e.UserId);
             base.OnModelCreating(builder);
         }
 

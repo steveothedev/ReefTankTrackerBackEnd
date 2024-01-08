@@ -10,7 +10,6 @@ using ReefTankTracker.Repositories.v1;
 using ReefTankTracker.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,13 +49,11 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddApiVersioning(options =>
     {
-        //options.DefaultApiVersion = new ApiVersion(2, 0);
         options.ApiVersionReader = new UrlSegmentApiVersionReader();
         options.AssumeDefaultVersionWhenUnspecified = true;
         options.ReportApiVersions = true;
     }).AddApiExplorer(options =>
     {
-        //options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
     });
 builder.Services.AddDbContext<DataContext>(options =>
@@ -70,8 +67,8 @@ builder.Services.AddIdentityCore<IdentityUser>(options =>
 }).AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReefTankRepository, ReefTankRepository>();
+builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
 builder.Services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
 
 var app = builder.Build();
